@@ -10,7 +10,7 @@ public abstract class Token {
         CONDITION,
         METHOD_CALL,
         LITERAL,
-        DATA_TYPE,
+        KEYWORD
     }
 
     protected TokenType tokenType;
