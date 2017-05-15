@@ -10,7 +10,8 @@ public abstract class Token {
         CONDITION,
         METHOD_CALL,
         LITERAL,
-        KEYWORD
+        KEYWORD,
+        BORDER
     }
 
     protected TokenType tokenType;
@@ -18,5 +19,13 @@ public abstract class Token {
 
     public Token(String actualString) {
         this.actualString = actualString;
+    }
+
+    public TokenType getTokenType() {
+        return tokenType;
+    }
+
+    public String getActualString() {
+        return actualString;
     }
 }
