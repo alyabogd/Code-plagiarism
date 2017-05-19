@@ -31,6 +31,20 @@ public class CCodeParser implements CodeParser {
      */
     private static final Pattern methodBeginPattern = Pattern.compile("(.*)\\s?\\([\\w ,]*\\)\\s*\\{");
 
+    /**
+     * Pattern detects inline comment in input string
+     * <p>
+     * First group (.*) stands for comment itself.
+     */
+    private static final Pattern inlineComment = Pattern.compile("//(.*)");
+
+    /**
+     * Pattern detects multi-line comments
+     * <p>
+     * First group (.*) stands for comment itself
+     */
+    private static final Pattern multilineComment = Pattern.compile("/\\*(.*)\\*/");
+
     public static void main(String[] args) {
         String text = FileUtil.getText("test.txt", "UTF8");
         CodeParser parser = new CCodeParser();
@@ -44,14 +58,25 @@ public class CCodeParser implements CodeParser {
     private List<Token> parseStatement(String statement) {
         List<Token> tokens = new LinkedList<>();
         //System.out.println("st: " + statement);
-        for(Character c : statement.toCharArray()) {
-            if (c == '}' || c == '{'){
+        for (Character c : statement.toCharArray()) {
+            if (c == '}' || c == '{') {
                 tokens.add(new Border(String.valueOf(c)));
             }
         }
 
         // TODO implement somehow
         return tokens;
+    }
+
+    private List<Token> parseLine(String line) {
+        line = line.trim();
+        final List<Token> lineTokens = new LinkedList<>();
+
+        final String[] statements = line.split(";");
+        for (String statement : statements) {
+            lineTokens.addAll(parseStatement(statement));
+        }
+        return lineTokens;
     }
 
     private Method extractMethod(String[] lines, int lineBegin) {
@@ -70,18 +95,16 @@ public class CCodeParser implements CodeParser {
         bracketsStack.push('{');
         methodTokens.add(new Border("{"));
         while (!bracketsStack.isEmpty() && currentLine < numberOfLines) {
-            // parse content
-            final String[] statements = lines[currentLine].split(";");
-            final List<Token> lineTokens = new LinkedList<>();
-            for (String statement : statements) {
-                lineTokens.addAll(parseStatement(statement));
-            }
+
+            final List<Token> lineTokens = parseLine(lines[currentLine]);
+
             for (Token token : lineTokens) {
                 if (token.getTokenType() == Token.TokenType.BORDER) {
                     Border border = (Border) token;
                     if (border.getBorderType() == Border.BorderType.OPENING) {
                         bracketsStack.push('{');
                     } else {
+                        // if bracketsStack.isEmpty -> unexpected end of method.
                         bracketsStack.pop();
                     }
                 }
@@ -93,8 +116,39 @@ public class CCodeParser implements CodeParser {
         return new Method(methodName, methodTokens, lineBegin, currentLine);
     }
 
+    String removeComments(String text) {
+        boolean isInsideComment = false;
+        String lines[] = text.split(System.lineSeparator());
+        for (int i = 0; i < lines.length; ++i) {
+            if (!isInsideComment) {
+                lines[i] = lines[i].replaceFirst(inlineComment.toString(), "");
+                lines[i] = lines[i].replaceAll(multilineComment.toString(), "");
+                if (lines[i].contains("/*")) {
+                    lines[i] = lines[i].replaceFirst("/\\*.*", "");
+                    isInsideComment = true;
+                }
+            }  else { // isInsideComment
+                if (lines[i].contains("*/")) {
+                    isInsideComment = false;
+                    lines[i] = lines[i].replaceFirst(".*\\*/", "");
+                    lines[i] = lines[i].replaceFirst(inlineComment.toString(), "");
+                    lines[i] = lines[i].replaceAll(multilineComment.toString(), "");
+                } else {
+                    lines[i] = "";
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for(String line : lines) {
+            sb.append(line).append(System.lineSeparator());
+        }
+        return sb.toString();
+    }
+
     @Override
     public SourceCode parse(String text) {
+        text = removeComments(text);
+        System.out.println(text);
         List<Method> methods = new LinkedList<>();
         final String[] lines = text.split(System.lineSeparator());
         for (int i = 0; i < lines.length; ++i) {
@@ -105,7 +159,7 @@ public class CCodeParser implements CodeParser {
             }
         }
 
-        for(Method method : methods) {
+        for (Method method : methods) {
             System.out.println(method);
         }
         return null;
