@@ -22,10 +22,10 @@ public class Keyword extends Token {
 
     public static void setDefaultRules() {
         String[] dataTypes = new String[]{"byte", "short", "int", "long",
-                "float", "double", "bool", "string", "char", "unsigned", "signed", "const"};
+                "float", "double", "bool", "string", "char", "unsigned", "signed"};
 
         String[] structural = new String[]{"new", "delete", "class", "struct", "namespace",
-                "public", "private", "protected", "template", "static", "enum"};
+                "public", "private", "protected", "template", "static", "enum", "const", "return"};
 
         String[] controls = new String[]{"for", "do", "while", "break", "continue",
                 "if", "else", "switch", "case", "default", "try", "catch", "throw"};
@@ -50,6 +50,13 @@ public class Keyword extends Token {
         return rules.getOrDefault(keyword, KeywordType.OTHER);
     }
 
+    @Override
+    public String toString() {
+        return "Keyword {" +
+                "keywordType=" + keywordType +
+                "}  \"" + actualString + "\"";
+    }
+
     public enum KeywordType {
         OTHER,
         DATA_TYPE,
@@ -57,5 +64,4 @@ public class Keyword extends Token {
         CONTROL,
         DEFINE
     }
-
 }

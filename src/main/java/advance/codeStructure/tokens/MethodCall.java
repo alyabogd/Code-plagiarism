@@ -12,4 +12,11 @@ public class MethodCall extends Token {
         this.tokenType = TokenType.METHOD_CALL;
         // TODO extract method name/ what for?
     }
+
+    @Override
+    public String toString() {
+        return "MethodCall {" +
+                "methodName='" + methodName + '\'' +
+                '}';
+    }
 }

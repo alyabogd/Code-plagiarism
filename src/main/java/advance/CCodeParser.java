@@ -2,8 +2,7 @@ package advance;
 
 import advance.codeStructure.Method;
 import advance.codeStructure.SourceCode;
-import advance.codeStructure.tokens.Border;
-import advance.codeStructure.tokens.Token;
+import advance.codeStructure.tokens.*;
 import advance.fileParcers.FileUtil;
 
 import java.util.*;
@@ -36,14 +35,19 @@ public class CCodeParser implements CodeParser {
      * <p>
      * First group (.*) stands for comment itself.
      */
-    private static final Pattern inlineComment = Pattern.compile("//(.*)");
+    private static final Pattern inlineCommentPattern = Pattern.compile("//(.*)");
 
     /**
      * Pattern detects multi-line comments
      * <p>
      * First group (.*) stands for comment itself
      */
-    private static final Pattern multilineComment = Pattern.compile("/\\*(.*)\\*/");
+    private static final Pattern multilineCommentPattern = Pattern.compile("/\\*(.*)\\*/");
+
+    /**
+     * Pattern detects all possible operators
+     */
+    private static final Pattern operatorPattern = Pattern.compile("[+\\-*/%><=&|]{1,2}+");
 
     public static void main(String[] args) {
         String text = FileUtil.getText("test.txt", "UTF8");
@@ -57,15 +61,52 @@ public class CCodeParser implements CodeParser {
 
     private List<Token> parseStatement(String statement) {
         List<Token> tokens = new LinkedList<>();
-        //System.out.println("st: " + statement);
-        for (Character c : statement.toCharArray()) {
-            if (c == '}' || c == '{') {
-                tokens.add(new Border(String.valueOf(c)));
+        CTokenIdentifier tokenIdentifier = new CTokenIdentifier();
+        String[] words = statement.split("\\s+");
+        for (String word : words) {
+            // determine type of token
+            Token.TokenType type = tokenIdentifier.determineTokenType(word);
+            switch (type) {
+                case CYCLE:
+                    tokens.add(new Cycle(word));
+                    break;
+                case KEYWORD:
+                    tokens.add(new Keyword(word));
+                    break;
+                case BORDER:
+                    tokens.add(new Border(word));
+                    break;
+                case OPERATOR:
+                    tokens.add(new Operator(word));
+                    break;
+                case CONDITION:
+                    tokens.add(new Condition(word));
+                    break;
+                case LITERAL:
+                    tokens.add(new Literal(word));
+                    break;
+                case IDENTIFIER:
+                case METHOD_CALL:
+                    break;
             }
         }
 
-        // TODO implement somehow
         return tokens;
+    }
+
+    /**
+     * Performs statement normalization.
+     * <ul>
+     * <li> Add spaces near operators </li>
+     * <li> Add spaces near round brackets </li>
+     * </ul>
+     */
+    private String normalizeStatement(String statement) {
+        //System.out.print(statement + " -> ");
+        statement = statement.replaceAll(operatorPattern.toString(), " $0 ");
+        statement = statement.replaceAll("[()]", " $0 ");
+        //System.out.println(statement);
+        return statement;
     }
 
     private List<Token> parseLine(String line) {
@@ -74,6 +115,7 @@ public class CCodeParser implements CodeParser {
 
         final String[] statements = line.split(";");
         for (String statement : statements) {
+            statement = normalizeStatement(statement);
             lineTokens.addAll(parseStatement(statement));
         }
         return lineTokens;
@@ -116,30 +158,30 @@ public class CCodeParser implements CodeParser {
         return new Method(methodName, methodTokens, lineBegin, currentLine);
     }
 
-    String removeComments(String text) {
+    private String removeComments(String text) {
         boolean isInsideComment = false;
         String lines[] = text.split(System.lineSeparator());
         for (int i = 0; i < lines.length; ++i) {
             if (!isInsideComment) {
-                lines[i] = lines[i].replaceFirst(inlineComment.toString(), "");
-                lines[i] = lines[i].replaceAll(multilineComment.toString(), "");
+                lines[i] = lines[i].replaceFirst(inlineCommentPattern.toString(), "");
+                lines[i] = lines[i].replaceAll(multilineCommentPattern.toString(), "");
                 if (lines[i].contains("/*")) {
                     lines[i] = lines[i].replaceFirst("/\\*.*", "");
                     isInsideComment = true;
                 }
-            }  else { // isInsideComment
+            } else { // isInsideComment
                 if (lines[i].contains("*/")) {
                     isInsideComment = false;
                     lines[i] = lines[i].replaceFirst(".*\\*/", "");
-                    lines[i] = lines[i].replaceFirst(inlineComment.toString(), "");
-                    lines[i] = lines[i].replaceAll(multilineComment.toString(), "");
+                    lines[i] = lines[i].replaceFirst(inlineCommentPattern.toString(), "");
+                    lines[i] = lines[i].replaceAll(multilineCommentPattern.toString(), "");
                 } else {
                     lines[i] = "";
                 }
             }
         }
         StringBuilder sb = new StringBuilder();
-        for(String line : lines) {
+        for (String line : lines) {
             sb.append(line).append(System.lineSeparator());
         }
         return sb.toString();
@@ -148,7 +190,6 @@ public class CCodeParser implements CodeParser {
     @Override
     public SourceCode parse(String text) {
         text = removeComments(text);
-        System.out.println(text);
         List<Method> methods = new LinkedList<>();
         final String[] lines = text.split(System.lineSeparator());
         for (int i = 0; i < lines.length; ++i) {

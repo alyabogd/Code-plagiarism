@@ -1,8 +1,6 @@
 package advance.codeStructure.tokens;
 
-/**
- * Created by Alina on 5/11/2017.
- */
+
 public class Condition extends Token {
 
     public Condition(String actualString) {
@@ -10,4 +8,12 @@ public class Condition extends Token {
         this.tokenType = TokenType.CONDITION;
     }
 
+    public static boolean isCondition(String word) {
+        return word.equals("if");
+    }
+
+    @Override
+    public String toString() {
+        return "Condition \"" + actualString + "\"";
+    }
 }

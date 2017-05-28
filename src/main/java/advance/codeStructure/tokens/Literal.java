@@ -40,6 +40,17 @@ public class Literal extends Token {
         return LiteralType.OTHER;
     }
 
+    public LiteralType getLiteralType() {
+        return literalType;
+    }
+
+    @Override
+    public String toString() {
+        return "Literal{" +
+                "literalType=" + literalType +
+                "}  \"" + actualString + "\"";
+    }
+
     /**
      * NUMBER - stands for any number literal: integer long double float unsigned or not etc
      * STRING - stands for any string literal, which is captured in quotes
@@ -51,9 +62,5 @@ public class Literal extends Token {
         NUMBER,
         STRING,
         BOOLEAN
-    }
-
-    public LiteralType getLiteralType() {
-        return literalType;
     }
 }
