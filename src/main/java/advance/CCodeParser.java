@@ -49,6 +49,8 @@ public class CCodeParser implements CodeParser {
      */
     private static final Pattern operatorPattern = Pattern.compile("[+\\-*/%><=&|]{1,2}+");
 
+    private static final Pattern doubleArithmethicOperator = Pattern.compile("[+\\-*/%]=");
+
     public static void main(String[] args) {
         String text = FileUtil.getText("test.txt", "UTF8");
         CodeParser parser = new CCodeParser();
@@ -57,6 +59,32 @@ public class CCodeParser implements CodeParser {
 
     private boolean isMethodBegin(String line) {
         return line.matches(methodBeginPattern.toString());
+    }
+
+    /**
+     * '&&' operator will be transformed into sequential if's // TODO fix borders in this case
+     * '>' && '>=' operators will be transformed into '<' && '<='
+     * double operators ('+=', '-=', '*=' and so on) will be transformed in corresponding single operators.
+     * mb smth else
+     */
+    private List<Token> normalizeTokensInsideStatement(List<Token> tokens) {
+        for (int index = 0; index < tokens.size(); ++index) {
+            final Token currentToken = tokens.get(index);
+            if (currentToken.getTokenType() == Token.TokenType.OPERATOR) {
+                final String actualString = currentToken.getActualString();
+                if (actualString.equals("&&")) {
+                    tokens.set(index, new Condition("if"));
+                    continue;
+                }
+                if (actualString.matches(doubleArithmethicOperator.toString())) {
+                    tokens.set(index, new Operator("="));
+                    tokens.add(index + 1, new Operator(String.valueOf(actualString.charAt(0))));
+                    continue;
+                }
+                // TODO relational operators matching
+            }
+        }
+        return tokens;
     }
 
     private List<Token> parseStatement(String statement) {
@@ -86,10 +114,13 @@ public class CCodeParser implements CodeParser {
                     tokens.add(new Literal(word));
                     break;
                 case IDENTIFIER:
+                    tokens.add(new Identifier(word));
                 case METHOD_CALL:
                     break;
             }
         }
+
+        tokens = normalizeTokensInsideStatement(tokens);
 
         return tokens;
     }
