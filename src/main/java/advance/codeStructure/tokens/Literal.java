@@ -47,7 +47,7 @@ public class Literal extends Token {
         }
         final Literal other = (Literal) token;
         if (this.tokenType != other.tokenType) {
-            return 1;
+            return 0;
         }
         return this.actualString.equals(other.actualString) ? 2 : 1;
     }

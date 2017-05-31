@@ -27,6 +27,7 @@ public class Operator extends Token {
         final String[] relational = new String[]{"==", "!=", ">", "<", ">=", "<="};
         final String[] logical = new String[]{"&&", "||", "^", "!"};
         final String[] assignment = new String[]{"="};
+        final String[] byteOperations = new String[]{"|", "&", "~", "<<", ">>"};
 
         Arrays.stream(arithmetic)
                 .forEach(op -> rules.put(op, OperatorType.ARITHMETIC));
@@ -36,6 +37,8 @@ public class Operator extends Token {
                 .forEach(op -> rules.put(op, OperatorType.LOGICAL));
         Arrays.stream(assignment)
                 .forEach(op -> rules.put(op, OperatorType.ASSIGNMENT));
+        Arrays.stream(byteOperations)
+                .forEach(op -> rules.put(op, OperatorType.BYTE));
 
         setRules(rules);
     }
@@ -54,7 +57,7 @@ public class Operator extends Token {
         }
         final Operator other = (Operator) token;
         if (this.operatorType != other.operatorType) {
-            return 1;
+            return 0;
         }
         return this.actualString.equals(other.actualString) ? 2 : 1;
     }
@@ -87,5 +90,6 @@ public class Operator extends Token {
         RELATIONAL,
         LOGICAL,
         ASSIGNMENT,
+        BYTE
     }
 }

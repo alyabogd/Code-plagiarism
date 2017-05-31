@@ -50,6 +50,30 @@ public class Keyword extends Token {
         return rules.getOrDefault(keyword, KeywordType.OTHER);
     }
 
+    public static Identifier.IdentifierType getTypeOfDataType(String keyword) {
+        String[] numbers = {"byte", "short", "int", "long",
+                "float", "double", "unsigned"};
+        String[] chars = {"string", "char"};
+        String[] bool = {"bool"};
+
+        for (String number : numbers) {
+            if (keyword.equals(number)) {
+                return Identifier.IdentifierType.NUMBER;
+            }
+        }
+        for (String type : chars) {
+            if (keyword.equals(type)) {
+                return Identifier.IdentifierType.STRING;
+            }
+        }
+        for (String type : bool) {
+            if (keyword.equals(type)) {
+                return Identifier.IdentifierType.BOOLEAN;
+            }
+        }
+        return Identifier.IdentifierType.OTHER;
+    }
+
     @Override
     public int compare(Token token) {
         if (token.tokenType != TokenType.KEYWORD) {
@@ -57,7 +81,7 @@ public class Keyword extends Token {
         }
         final Keyword other = (Keyword) token;
         if (this.keywordType != other.keywordType) {
-            return 1;
+            return 0;
         }
         return this.actualString.equals(other.actualString) ? 2 : 1;
     }

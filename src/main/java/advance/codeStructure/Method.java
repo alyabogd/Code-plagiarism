@@ -34,6 +34,10 @@ public class Method {
         return endLine;
     }
 
+    public int getNumberOfTokens() {
+        return structure.size();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
