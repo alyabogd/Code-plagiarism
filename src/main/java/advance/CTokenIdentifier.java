@@ -2,17 +2,18 @@ package advance;
 
 import advance.codeStructure.tokens.*;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CTokenIdentifier {
 
     private boolean isIdentification;
-    private List<String> identifiers;
+    private Map<String, Identifier.IdentifierType> identifiers;
+    private Identifier.IdentifierType lastIdentifierType;
 
     public CTokenIdentifier() {
         isIdentification = false;
-        identifiers = new LinkedList<>();
+        identifiers = new HashMap<>();
     }
 
     public void clean() {
@@ -23,10 +24,13 @@ public class CTokenIdentifier {
     private Token.TokenType processIdentification(String word) {
         Keyword.KeywordType keywordType = Keyword.determineKeywordType(word);
         if (keywordType == Keyword.KeywordType.DATA_TYPE) {
-            //return Token.TokenType.KEYWORD;
+            Identifier.IdentifierType identifierType = Keyword.getTypeOfDataType(word);
+            if (identifierType != Identifier.IdentifierType.OTHER) {
+                lastIdentifierType = identifierType;
+            }
             return Token.TokenType.OTHER;
         }
-        identifiers.add(word);
+        identifiers.put(word, lastIdentifierType);
         isIdentification = false;
         return Token.TokenType.IDENTIFIER;
     }
@@ -49,7 +53,7 @@ public class CTokenIdentifier {
             return Token.TokenType.LITERAL;
         }
 
-        if (identifiers.contains(word)) {
+        if (identifiers.containsKey(word)) {
             return Token.TokenType.IDENTIFIER;
         }
 
@@ -65,7 +69,7 @@ public class CTokenIdentifier {
                 return Token.TokenType.KEYWORD;
             case DATA_TYPE:
                 isIdentification = true;
-                //return Token.TokenType.KEYWORD;
+                lastIdentifierType = Keyword.getTypeOfDataType(word);
                 return Token.TokenType.OTHER;
             case DEFINE:
                 //--- TODO make map with defines and translate them
@@ -74,5 +78,9 @@ public class CTokenIdentifier {
                 return Token.TokenType.KEYWORD;
         }
         return Token.TokenType.OTHER;
+    }
+
+    public Identifier.IdentifierType getLastIdentificationType() {
+        return lastIdentifierType;
     }
 }

@@ -23,12 +23,12 @@ public class CCodeParser implements CodeParser {
      * There might be a space between method name and round brackets
      * <p>
      * There might be arguments inside round brackets. Legal characters
-     * are: 'word' characters (\\w), space and comma
+     * are: 'word' characters (\\w), pointer('*'), link('&'), space and comma
      * <p>
      * It is necessary for round brackets to be followed by opening curly
      * bracket. There might be one or more spaces between them.
      */
-    private static final Pattern methodBeginPattern = Pattern.compile("(.*)\\s?\\([\\w ,]*\\)\\s*\\{");
+    private static final Pattern methodBeginPattern = Pattern.compile("(.*)\\s?\\([^)]*\\)\\s*\\{");
 
     /**
      * Pattern detects inline comment in input string
@@ -49,12 +49,13 @@ public class CCodeParser implements CodeParser {
      */
     private static final Pattern operatorPattern = Pattern.compile("[+\\-*/%><=&|]{1,2}+");
 
-    private static final Pattern doubleArithmethicOperator = Pattern.compile("[+\\-*/%]=");
+    private static final Pattern doubleArithmeticOperator = Pattern.compile("[+\\-*/%]=");
 
     public static void main(String[] args) {
-        String text = FileUtil.getText("test.txt", "UTF8");
+        String text = FileUtil.getText("test/BubbleSort/test6.cpp", "UTF8");
         CodeParser parser = new CCodeParser();
-        parser.parse(text);
+        SourceCode sourceCode = parser.parse(text);
+        System.out.println(sourceCode);
     }
 
     private boolean isMethodBegin(String line) {
@@ -76,7 +77,7 @@ public class CCodeParser implements CodeParser {
                     tokens.set(index, new Condition("if"));
                     continue;
                 }
-                if (actualString.matches(doubleArithmethicOperator.toString())) {
+                if (actualString.matches(doubleArithmeticOperator.toString())) {
                     tokens.set(index, new Operator("="));
                     tokens.add(index + 1, new Operator(String.valueOf(actualString.charAt(0))));
                     continue;
@@ -114,7 +115,9 @@ public class CCodeParser implements CodeParser {
                     tokens.add(new Literal(word));
                     break;
                 case IDENTIFIER:
-                    tokens.add(new Identifier(word));
+                    Identifier.IdentifierType identifierType = tokenIdentifier.getLastIdentificationType();
+                    tokens.add(new Identifier(word, identifierType));
+                    break;
                 case METHOD_CALL:
                     break;
             }
@@ -231,10 +234,7 @@ public class CCodeParser implements CodeParser {
             }
         }
 
-        for (Method method : methods) {
-            System.out.println(method);
-        }
-        return null;
+        return new SourceCode(methods);
     }
 
 
