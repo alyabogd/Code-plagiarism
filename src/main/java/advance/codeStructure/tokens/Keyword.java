@@ -51,6 +51,18 @@ public class Keyword extends Token {
     }
 
     @Override
+    public int compare(Token token) {
+        if (token.tokenType != TokenType.KEYWORD) {
+            return 0;
+        }
+        final Keyword other = (Keyword) token;
+        if (this.keywordType != other.keywordType) {
+            return 1;
+        }
+        return this.actualString.equals(other.actualString) ? 2 : 1;
+    }
+
+    @Override
     public String toString() {
         return "Keyword {" +
                 "keywordType=" + keywordType +

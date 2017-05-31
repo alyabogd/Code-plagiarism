@@ -1,12 +1,44 @@
 package advance.codeStructure;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
 
 public class SourceCode {
 
-    private Map<String, Method> methods;
+    // TODO fileName?
+    private List<Method> methods;
     private List<String> comments;
 
+    public SourceCode() {
+        methods = new LinkedList<>();
+        comments = new LinkedList<>();
+    }
+
+    public SourceCode(List<Method> methods) {
+        this.methods = methods;
+        comments = new LinkedList<>();
+    }
+
+    public void addMethod(Method method) {
+        methods.add(method);
+    }
+
+    public void addComment(String comment) {
+        comments.add(comment);
+    }
+
+    public List<Method> getMethods() {
+        return methods;
+    }
+
+    public List<String> getComments() {
+        return comments;
+    }
+
+    @Override
+    public String toString() {
+        return "SourceCode \n" +
+                "  methods: \n" + methods +
+                "\n comments : \n" + comments;
+    }
 }

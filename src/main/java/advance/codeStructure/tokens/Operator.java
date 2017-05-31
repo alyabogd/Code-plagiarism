@@ -47,6 +47,18 @@ public class Operator extends Token {
         return rules.getOrDefault(operator, OperatorType.OTHER);
     }
 
+    @Override
+    public int compare(Token token) {
+        if (token.getTokenType() != TokenType.OPERATOR) {
+            return 0;
+        }
+        final Operator other = (Operator) token;
+        if (this.operatorType != other.operatorType) {
+            return 1;
+        }
+        return this.actualString.equals(other.actualString) ? 2 : 1;
+    }
+
     public OperatorType getOperatorType() {
         return operatorType;
     }

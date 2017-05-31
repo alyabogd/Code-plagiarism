@@ -8,6 +8,11 @@ public class Identifier extends Token {
     }
 
     @Override
+    public int compare(Token token) {
+        return token.tokenType == TokenType.IDENTIFIER ? 1 : 0;
+    }
+
+    @Override
     public String toString() {
         return "Identifier  \"" + actualString + "\"";
     }

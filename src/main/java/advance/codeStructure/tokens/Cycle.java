@@ -1,6 +1,5 @@
 package advance.codeStructure.tokens;
 
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,6 +14,15 @@ public class Cycle extends Token {
 
     public static boolean isCycle(String word) {
         return cycles.contains(word);
+    }
+
+    @Override
+    public int compare(Token token) {
+        if (token.tokenType != TokenType.CYCLE) {
+            return 0;
+        }
+        final Cycle other = (Cycle) token;
+        return this.actualString.equals(other.actualString) ? 2 : 1;
     }
 
     @Override

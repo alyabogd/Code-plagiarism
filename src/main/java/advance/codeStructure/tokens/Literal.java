@@ -40,6 +40,18 @@ public class Literal extends Token {
         return LiteralType.OTHER;
     }
 
+    @Override
+    public int compare(Token token) {
+        if (token.getTokenType() != TokenType.LITERAL) {
+            return 0;
+        }
+        final Literal other = (Literal) token;
+        if (this.tokenType != other.tokenType) {
+            return 1;
+        }
+        return this.actualString.equals(other.actualString) ? 2 : 1;
+    }
+
     public LiteralType getLiteralType() {
         return literalType;
     }

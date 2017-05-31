@@ -5,12 +5,13 @@ package advance.codeStructure.tokens;
  */
 public class Border extends Token {
 
-    public enum BorderType {
-        OPENING,
-        CLOSING
-    }
-
     private BorderType borderType;
+
+    public Border(String actualString) {
+        super(actualString);
+        this.tokenType = TokenType.BORDER;
+        this.borderType = determineBorderType(actualString);
+    }
 
     private static BorderType determineBorderType(String border) {
         if (border.equals("}")) {
@@ -19,10 +20,13 @@ public class Border extends Token {
         return BorderType.OPENING;
     }
 
-    public Border(String actualString) {
-        super(actualString);
-        this.tokenType = TokenType.BORDER;
-        this.borderType = determineBorderType(actualString);
+    @Override
+    public int compare(Token token) {
+        if (token.tokenType != TokenType.BORDER) {
+            return 0;
+        }
+        final Border other = (Border) token;
+        return this.borderType == other.borderType ? 1 : 0;
     }
 
     public BorderType getBorderType() {
@@ -32,5 +36,10 @@ public class Border extends Token {
     @Override
     public String toString() {
         return "Border \"" + actualString + "\"";
+    }
+
+    public enum BorderType {
+        OPENING,
+        CLOSING
     }
 }
