@@ -1,13 +1,9 @@
 package advance.codeComprators;
 
-import advance.CCodeParser;
-import advance.CodeParser;
 import advance.codeStructure.Method;
 import advance.codeStructure.SourceCode;
 import advance.codeStructure.tokens.*;
-import advance.fileParcers.FileUtil;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,7 +11,7 @@ import java.util.List;
  */
 public class LCSCodeComparator implements CodeComparator {
 
-    private static int getLCSLength(List<Token> first, List<Token> second) {
+    private int getLCSLength(List<Token> first, List<Token> second) {
         if (first.size() < second.size()) {
             List<Token> temp = first;
             first = second;
