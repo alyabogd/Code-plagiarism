@@ -22,10 +22,10 @@ public class MethodSimilarity {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(first.getName())
-                .append("(").append(first.getNumberOfTokens()).append(")")
-                .append(" + ").append(second.getName())
-                .append("(").append(second.getNumberOfTokens()).append(")")
-                .append("\t -> \t").append(measure);
+                //.append("(").append(first.getNumberOfTokens()).append(")")
+                .append(" and ").append(second.getName())
+                //.append("(").append(second.getNumberOfTokens()).append(")")
+                .append("\t measure:  \t").append(measure);
         return sb.toString();
     }
 }

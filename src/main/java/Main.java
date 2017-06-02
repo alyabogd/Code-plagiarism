@@ -1,6 +1,14 @@
+import advance.CCodeParser;
+import advance.CodeParser;
+import advance.codeComprators.*;
+import advance.codeStructure.Method;
+import advance.codeStructure.SourceCode;
+import advance.fileParcers.FileUtil;
+
+import javax.print.DocFlavor;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -35,7 +43,7 @@ public class Main {
                 .append("file to check: ").append(fileToCheck.getAbsolutePath()).append("\n")
                 .append("files to compare: \n");
         //noinspection ConstantConditions
-        for(String fileName : directoryToCheck.list((dir, name) -> !name.equals(fileToCheck.getName()) && name.matches(".*\\.cpp"))) {
+        for (String fileName : directoryToCheck.list((dir, name) -> !name.equals(fileToCheck.getName()) && name.matches(".*\\.cpp"))) {
             sb.append("\t").append(fileName).append("\n");
         }
         return sb.toString();
@@ -131,7 +139,59 @@ public class Main {
     }
 
     private static void startCheck() {
-        System.out.println("\tstarting.........\n");
+        System.out.println("\tstarting...\n");
+        List<SourceCode> sourceCodes = new ArrayList<>();
+        SourceCode pattern = null;
+        CodeParser codeParser = new CCodeParser();
+        //noinspection ConstantConditions
+        for (File file : directoryToCheck.listFiles((dir, name) -> name.matches(".*\\.cpp"))) {
+            SourceCode code = codeParser.parse(FileUtil.getText(file.getAbsolutePath(), "UTF8"));
+            code.setFileName(file.getName());
+            if (file.getName().equals(fileToCheck.getName())) {
+                pattern = code;
+            } else {
+                sourceCodes.add(code);
+            }
+            System.out.println("\t--\t--\t--\t--\n\nFile " + file.getName() + " :");
+            System.out.println(" " + code.getMethods().size() + " methods found");
+            int tokensAll = 0;
+            for (Method method : code.getMethods()) {
+                System.out.format(" %15s \tlines %d - %d \t %d tokens found\n",
+                        method.getName(),
+                        method.getStartLine(),
+                        method.getEndLine(),
+                        method.getNumberOfTokens());
+                tokensAll += method.getNumberOfTokens();
+            }
+            System.out.println("total length : " + tokensAll + "\n");
+        }
+
+        performChecking(pattern, sourceCodes);
+    }
+
+    private static void performChecking(SourceCode pattern, List<SourceCode> sourceCodes) {
+        System.out.println("\n\n comparing....\n");
+        CodeComparator codeComparator = null;
+        switch (comparator) {
+            case LCS:
+                codeComparator = new LCSCodeComparator();
+                break;
+            case COST:
+                codeComparator = new AlignmentCostCodeComparator();
+                break;
+            case GREEDY:
+                codeComparator = new GreedyStringTilingCodeComparator();
+                break;
+        }
+
+        for(SourceCode sourceCode : sourceCodes) {
+            CodeSimilarity similarity = codeComparator.compare(pattern, sourceCode);
+            if (!similarity.getPlagiatedMethods().isEmpty()) {
+                System.out.println("Found plagiarism with " + sourceCode.getFileName());
+                System.out.println(similarity);
+            }
+        }
+
     }
 
     public enum Comparators {

@@ -20,10 +20,13 @@ public class CodeSimilarity {
         plagiatedMethods.add(new MethodSimilarity(first, second, measure));
     }
 
+    public List<MethodSimilarity> getPlagiatedMethods() {
+        return plagiatedMethods;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("CodeSimilarity : \n");
         for (MethodSimilarity ms : plagiatedMethods) {
             sb.append("\t").append(ms).append("\n");
         }

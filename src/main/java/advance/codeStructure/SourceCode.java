@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SourceCode {
 
-    // TODO fileName?
+    private String fileName;
     private List<Method> methods;
     private List<String> comments;
 
@@ -17,6 +17,14 @@ public class SourceCode {
     public SourceCode(List<Method> methods) {
         this.methods = methods;
         comments = new LinkedList<>();
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 
     public void addMethod(Method method) {
