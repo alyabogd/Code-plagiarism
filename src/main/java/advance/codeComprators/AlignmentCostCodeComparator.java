@@ -12,10 +12,9 @@ import java.util.List;
  */
 public class AlignmentCostCodeComparator implements CodeComparator {
 
-    private static final int COINCIDENCE_COST = -2;
+    private static final int COINCIDENCE_COST = -1;
     private static final int MISS_COST = 1;
 
-    // TODO come up with rule (plagiarism or not)
 
     private int getAlignmentCost(List<Token> first, List<Token> second) {
         if (first.size() < second.size()) {
@@ -38,7 +37,8 @@ public class AlignmentCostCodeComparator implements CodeComparator {
                     // tokens are equal
                     costs[1][j] = costs[0][j - 1] + COINCIDENCE_COST;
                 } else {
-                    final int swapCost = costs[0][j - 1] + 2 - equalityMeasure;
+
+                    final int swapCost = costs[0][j - 1] + equalityMeasure + 1;
                     final int missCost = Math.min(costs[0][j], costs[1][j - 1]) + MISS_COST;
                     costs[1][j] = Math.min(swapCost, missCost);
                 }
@@ -52,10 +52,13 @@ public class AlignmentCostCodeComparator implements CodeComparator {
         CodeSimilarity codeSimilarity = new CodeSimilarity();
         for (Method methodFirst : first.getMethods()) {
             for (Method methodSecond : second.getMethods()) {
-                final int alignmentCost = getAlignmentCost(methodFirst.getStructure(), methodSecond.getStructure());
-                final int minLength = Math.min(methodFirst.getNumberOfTokens(), methodSecond.getNumberOfTokens());
+                final int alignmentCostAB = getAlignmentCost(methodFirst.getStructure(), methodSecond.getStructure());
+                final int alignmentCostAA = getAlignmentCost(methodFirst.getStructure(), methodFirst.getStructure());
+                final int alignmentCostBB = getAlignmentCost(methodSecond.getStructure(), methodSecond.getStructure());
+
                 //if (alignmentCost > minLength / 2) {
-                codeSimilarity.addSimilarity(methodFirst, methodSecond, alignmentCost);
+                codeSimilarity.addSimilarity(methodFirst, methodSecond,
+                        alignmentCostAB);
                 //}
             }
         }
