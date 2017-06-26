@@ -169,6 +169,10 @@ public class Main {
         performChecking(pattern, sourceCodes);
     }
 
+    private static void doSomething() {
+
+    }
+
     private static void performChecking(SourceCode pattern, List<SourceCode> sourceCodes) {
         System.out.println("\n\n comparing....\n");
         CodeComparator codeComparator = null;
@@ -184,15 +188,15 @@ public class Main {
                 break;
         }
 
-        for(SourceCode sourceCode : sourceCodes) {
+        for (SourceCode sourceCode : sourceCodes) {
             CodeSimilarity similarity = codeComparator.compare(pattern, sourceCode);
             if (!similarity.getPlagiatedMethods().isEmpty()) {
                 System.out.println("Found plagiarism with " + sourceCode.getFileName());
                 System.out.println(similarity);
             }
         }
-
     }
+
 
     public enum Comparators {
         LCS,

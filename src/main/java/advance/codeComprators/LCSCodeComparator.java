@@ -47,7 +47,7 @@ public class LCSCodeComparator implements CodeComparator {
                 int minLength = Math.min(
                         methodFromFirst.getNumberOfTokens(),
                         methodFromSecond.getNumberOfTokens());
-                if (lcs_length > 0.75 * minLength) {
+                if (lcs_length > 0.8 * minLength) {
                     codeSimilarity.addSimilarity(methodFromFirst, methodFromSecond, (lcs_length * 1.0) / minLength);
                 }
             }

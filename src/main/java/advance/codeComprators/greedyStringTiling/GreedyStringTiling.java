@@ -64,10 +64,14 @@ public class GreedyStringTiling {
 
         clear();
 
+        if (pattern.size() <= MINIMUM_MATCH_LENGTH) {
+            return new TiledMatches(new LinkedList<>(), 0);
+        }
+
         textHashValues = new RabinKarpHashValues(text);
         patternHashValues = new RabinKarpHashValues(pattern);
 
-        searchMatches(pattern.size() / 2);
+        searchMatches(pattern.size());
         return new TiledMatches(tiles, lengthOfTokensTiled);
     }
 
@@ -81,12 +85,25 @@ public class GreedyStringTiling {
     }
 
     /**
+     * Remove all found matches in maxMatches map and
+     * assign empty queues for all possible lengths
+     */
+    private void clearMaxMatches() {
+        maximalMatches = new TreeMap<>();
+        for (int i = 0; i <= text.size(); ++i) {
+            maximalMatches.put(i, new LinkedList<>());
+        }
+    }
+
+    /**
      * Implements Rabin-Karp Greedy-String-Tiling algorithm
      */
     private void searchMatches(int initSearchLength) {
         int searchLength = initSearchLength;
 
         while (searchLength != -1) {
+
+            clearMaxMatches();
 
             // maxLength is length of the longest maximal-matching found in this scan
             int maxLength = scanPattern(searchLength);
@@ -147,16 +164,13 @@ public class GreedyStringTiling {
      * @return size of the longest maximum matching found
      */
     private int scanPattern(int searchLength) {
-        int longestMaxMatch = 0;
 
-        patternHashValues.assignHashValuesForLength(searchLength);
-        textHashValues.assignHashValuesForLength(searchLength);
+        int longestMaxMatch = 0;
 
         putHashesInTextForLengthInMap(searchLength);
 
         for (int l = 0, r = searchLength - 1; r < pattern.size(); ++l, ++r) {
-            Integer nextMarkedToken = markedIndexesPattern.ceiling(l);
-            if (nextMarkedToken == null || nextMarkedToken > r) {
+            if (isIntervalUnmarked(l, r, markedIndexesPattern)) {
                 // if there is no marked elements in [l, r]
                 final long patternSubstringHash = patternHashValues.getHash(l, r);
                 final List<Integer> tokensWithEqualHash = textHashesMap.get(patternSubstringHash);
@@ -167,7 +181,7 @@ public class GreedyStringTiling {
                     int textIndex = beginIndex + currentMatchLength;
                     while (patternIndex < pattern.size() &&
                             textIndex < text.size() &&
-                            pattern.get(patternIndex).compare(text.get(textIndex)) == 0 &&
+                            pattern.get(patternIndex).compare(text.get(textIndex)) != 0 &&
                             isTextTokenUnmarked(textIndex) &&
                             isPatternTokenUnmarked(patternIndex)) {
                         // extend match until EOL or first non-match or element marked
@@ -180,9 +194,6 @@ public class GreedyStringTiling {
                         return currentMatchLength;
                     }
                     longestMaxMatch = Math.max(longestMaxMatch, currentMatchLength);
-                    if (!maximalMatches.containsKey(currentMatchLength)) {
-                        maximalMatches.put(currentMatchLength, new LinkedList<>());
-                    }
                     maximalMatches.get(currentMatchLength).add(new Match(l, beginIndex, currentMatchLength));
                 }
             }
@@ -191,21 +202,14 @@ public class GreedyStringTiling {
     }
 
     /**
-     * Checks if part of match is already marked. It it is, returns false.
-     * <p>
-     * Since longer matches are processed before smaller ones,
-     * occluded tokens might be in the beginning or (and) in the end of given match.
+     * Checks if part of match is already marked. It it is, returns false
      */
     private boolean isNotOccluded(Match match) {
-        final int patternIndex = match.getPatternPosition();
-        Integer nextMarkedToken = markedIndexesPattern.ceiling(patternIndex);
-        if (nextMarkedToken != null && nextMarkedToken <= patternIndex + match.getLenght()) {
-            return false;
-        }
-        final int textIndex = match.getTextPosition();
-
-        nextMarkedToken = markedIndexesText.ceiling(textIndex);
-        return nextMarkedToken == null || nextMarkedToken > textIndex + match.getLenght();
+        int patternPosition = match.getPatternPosition();
+        int textPosition = match.getTextPosition();
+        int len = match.getLenght();
+        return isIntervalUnmarked(patternPosition, patternPosition + len - 1, markedIndexesPattern) &&
+                isIntervalUnmarked(textPosition, textPosition + len - 1, markedIndexesText);
     }
 
     /**
@@ -215,36 +219,43 @@ public class GreedyStringTiling {
      * occluded tokens might be in the beginning or (and) in the end of given match.
      */
     private Match getNotOccludedPart(Match match) {
-        final int patternIndex = match.getPatternPosition();
-        final int textIndex = match.getTextPosition();
 
-        Integer nextMarkedIndex = markedIndexesPattern.ceiling(patternIndex);
-        int leftDeltaInPattern = (nextMarkedIndex == null) ? 0 : nextMarkedIndex - patternIndex;
+        int textIndex = match.getTextPosition();
+        int patternIndex = match.getPatternPosition();
+        int len = match.getLenght();
 
-        nextMarkedIndex = markedIndexesText.ceiling(textIndex);
-        int leftDeltaInText = (nextMarkedIndex == null) ? 0 : nextMarkedIndex - textIndex;
-
-        final int leftDelta = Math.max(leftDeltaInPattern, leftDeltaInText);
-
-        final int patternEndIndex = patternIndex + match.getLenght();
-        final int textEndIndex = textIndex + match.getLenght();
-
-        nextMarkedIndex = markedIndexesPattern.floor(patternEndIndex);
-        final int rightPatternDelta = (nextMarkedIndex == null) ? 0 : patternEndIndex - nextMarkedIndex;
-
-        nextMarkedIndex = markedIndexesText.floor(textEndIndex);
-        final int rightTextDelta = (nextMarkedIndex == null) ? 0 : textEndIndex - nextMarkedIndex;
-        final int rightDelta = Math.max(rightPatternDelta, rightTextDelta);
-
-        final int lengthOfNewMatch = match.getLenght() - leftDelta - rightDelta;
-
-        if (lengthOfNewMatch < MINIMUM_MATCH_LENGTH) {
-            return null;
+        // move left border to right while possible
+        while (markedIndexesText.contains(textIndex) ||
+                markedIndexesPattern.contains(patternIndex)) {
+            textIndex++;
+            patternIndex++;
+            len--;
+            if (textIndex >= text.size() || patternIndex >= pattern.size() || len < 0) {
+                return null;
+            }
         }
 
-        return new Match(patternIndex + leftDelta,
-                textIndex + leftDelta,
-                match.getLenght() - leftDelta - rightDelta);
+        // move right border to left while possible
+        while (markedIndexesText.contains(textIndex + len - 1) ||
+                markedIndexesPattern.contains(patternIndex + len - 1)) {
+            len--;
+            if (len < 0) {
+                return null;
+            }
+        }
+
+        return new Match(patternIndex, textIndex, len);
+    }
+
+    /**
+     * Returns true is there is no marked tokens on [l, r]
+     * <p>
+     * Since longer matches are processed before smaller ones,
+     * occluded tokens might be in the beginning or (and) in the end of given match.
+     */
+    private boolean isIntervalUnmarked(int l, int r, TreeSet<Integer> markedIndexes) {
+        Integer ceil = markedIndexes.ceiling(l);
+        return !(ceil != null && ceil <= r);
     }
 
     private void markTokensInsideMatch(Match match) {
@@ -272,14 +283,11 @@ public class GreedyStringTiling {
                     tiles.add(match);
                 } else {
                     // put non-occluded part of this match in correct queue
-                    /*final Match nonOccludedMatch = getNotOccludedPart(match);
+                    final Match nonOccludedMatch = getNotOccludedPart(match);
                     if (nonOccludedMatch == null) {
                         continue;
                     }
-                    if (!maximalMatches.containsKey(nonOccludedMatch.getLenght())) {
-                        maximalMatches.put(nonOccludedMatch.getLenght(), new LinkedList<>());
-                    }
-                    maximalMatches.get(nonOccludedMatch.getLenght()).add(nonOccludedMatch);*/
+                    maximalMatches.get(nonOccludedMatch.getLenght()).add(nonOccludedMatch);
                 }
             }
         }
