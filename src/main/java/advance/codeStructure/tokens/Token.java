@@ -46,7 +46,7 @@ public abstract class Token {
     public enum TokenType {
         OTHER,
         OPERATOR,
-        IDENTIFIER, // ??
+        IDENTIFIER,
         CYCLE,
         CONDITION,
         METHOD_CALL,

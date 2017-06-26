@@ -85,6 +85,17 @@ public class RabinKarpHashValuesShould {
 
     @Test
     public void giveEqualHashesForEqualSequences() {
+
+        first.clear();;
+        first.addAll(Arrays.asList(
+                new Border("}"),
+                new Cycle("for"),
+                new Operator("-"),
+                new Operator("++"),
+                new Condition("if"),
+                new Border("{")
+        ));
+
         List<Token> list = new ArrayList<>();
         list.addAll(Arrays.asList(
                 new Operator("+"),

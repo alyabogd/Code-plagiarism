@@ -16,7 +16,7 @@ public class RabinKarpHashValues {
     /**
      * Modulus for hash values
      */
-    private static final long MOD_F = 222926543;
+    private static final long MOD_F = 122926543;
     private static final long MOD_S = 153618461;
 
     private List<Token> tokens;
