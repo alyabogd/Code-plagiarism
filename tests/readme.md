@@ -1,4 +1,4 @@
-#Tests for _Code Plagiarism Detector_
+**Tests for _Code Plagiarism Detector_**
 
 Tests for _Code Plagiarism Detector_ are placed in this folder.
 
