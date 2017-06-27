@@ -220,7 +220,7 @@ public class Main {
 
     private static void write_reports() {
         String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh-mm-ss"));
-        String fileName = time + " " + fileToCheck.getName() + " " + comparator + " ";
+        String fileName = time + " " + fileToCheck.getName() + " ";
         try {
             PrintWriter logWriter = new PrintWriter(new File(fileName + "log.txt"));
             PrintWriter reportWriter = new PrintWriter(new File(fileName + "report.txt"));

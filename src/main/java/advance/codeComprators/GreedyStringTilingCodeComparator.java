@@ -20,9 +20,11 @@ public class GreedyStringTilingCodeComparator implements CodeComparator {
             for (Method methodFromSecond : second.getMethods()) {
                 TiledMatches matches = greedyStringTiling.getStringTiling(
                         methodFromFirst.getStructure(), methodFromSecond.getStructure());
-                if (matches.getLengthOfTokensTiled() >
-                        Math.min(methodFromFirst.getNumberOfTokens(), methodFromSecond.getNumberOfTokens()) / 2) {
-                    codeSimilarity.addSimilarity(methodFromFirst, methodFromSecond, matches.getLengthOfTokensTiled());
+                double measure = (double) matches.getLengthOfTokensTiled() / (
+                        Math.min(methodFromFirst.getNumberOfTokens(), methodFromSecond.getNumberOfTokens()));
+
+                if (measure > 0.6) {
+                    codeSimilarity.addSimilarity(methodFromFirst, methodFromSecond, measure);
                 }
             }
         }
