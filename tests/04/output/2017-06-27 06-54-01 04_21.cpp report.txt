@@ -1,0 +1,91 @@
+
+comparator: GREEDY
+file to check: C:\Users\Alina\IdeaProjects\CodePlagiarism\tests\04\04_21.cpp
+files to compare: 
+	04_01.cpp
+	04_02.cpp
+	04_03.cpp
+	04_04.cpp
+	04_05.cpp
+	04_06.cpp
+	04_06_01.cpp
+	04_06_02.cpp
+	04_07.cpp
+	04_08.cpp
+	04_09.cpp
+	04_10.cpp
+	04_10_01.cpp
+	04_11.cpp
+	04_12.cpp
+	04_13.cpp
+	04_14.cpp
+	04_15.cpp
+	04_15_01.cpp
+	04_16.cpp
+	04_18.cpp
+	04_19.cpp
+	04_20.cpp
+	04_21_01.cpp
+	04_23.cpp
+	04_24.cpp
+	04_25.cpp
+	04_26.cpp
+	04_27.cpp
+	04_28.cpp
+	04_29.cpp
+	04_30.cpp
+	04_31.cpp
+	04_31_01.cpp
+	04_32.cpp
+	04_33.cpp
+	04_34.cpp
+	04_35.cpp
+	04_36.cpp
+	04_37.cpp
+	04_38.cpp
+	04_39.cpp
+	04_40.cpp
+	04_40_01.cpp
+	04_41.cpp
+	04_42.cpp
+	04_42_01.cpp
+	04_43.cpp
+	04_44.cpp
+	04_45.cpp
+Found plagiarism with 04_01.cpp
+	setUp and dfs	 measure:  	0.6363636363636364
+
+Found plagiarism with 04_05.cpp
+	setUp and setUp	 measure:  	1.0
+	dfs and dfs	 measure:  	1.0
+	MAINA and MAIN	 measure:  	1.0
+	main and main	 measure:  	1.0
+
+Found plagiarism with 04_06.cpp
+	setUp and setUp	 measure:  	1.0
+	dfs and dfs	 measure:  	0.71875
+	MAINA and main	 measure:  	1.0
+
+Found plagiarism with 04_06_01.cpp
+	setUp and setUp	 measure:  	1.0
+	dfs and dfs	 measure:  	0.71875
+	MAINA and main	 measure:  	1.0
+
+Found plagiarism with 04_06_02.cpp
+	setUp and init	 measure:  	1.0
+	dfs and dfs	 measure:  	0.6875
+	MAINA and main	 measure:  	1.0
+
+Found plagiarism with 04_21_01.cpp
+	setUp and setUp	 measure:  	1.0
+	dfs and dfs	 measure:  	1.0
+	MAINA and MAINA	 measure:  	1.0
+	main and main	 measure:  	1.0
+
+Found plagiarism with 04_26.cpp
+	setUp and dfs	 measure:  	0.8181818181818182
+	MAINA and main	 measure:  	0.6222222222222222
+
+Found plagiarism with 04_36.cpp
+	setUp and dfs	 measure:  	0.6363636363636364
+

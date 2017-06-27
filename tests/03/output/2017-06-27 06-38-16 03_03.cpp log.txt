@@ -1,0 +1,49 @@
+
+comparator: GREEDY
+file to check: C:\Users\Alina\IdeaProjects\CodePlagiarism\tests\03\03_03.cpp
+files to compare: 
+	03_01.cpp
+	03_02.cpp
+	03_04.cpp
+	03_05.cpp
+	03_06.cpp
+	--	--	--	--
+
+File 03_01.cpp : 1 methods found            main 	lines 16 - 78 	 122 tokens found
+total length : 122
+	--	--	--	--
+
+File 03_02.cpp : 3 methods found             uin 	lines 36 - 43 	 11 tokens found
+             uax 	lines 45 - 52 	 11 tokens found
+            main 	lines 58 - 107 	 96 tokens found
+total length : 118
+	--	--	--	--
+
+File 03_03.cpp : 3 methods found             abs 	lines 50 - 53 	 5 tokens found
+            read 	lines 67 - 78 	 24 tokens found
+            main 	lines 83 - 145 	 99 tokens found
+total length : 128
+	--	--	--	--
+
+File 03_04.cpp : 2 methods found            doit 	lines 44 - 92 	 135 tokens found
+            main 	lines 94 - 100 	 11 tokens found
+total length : 146
+	--	--	--	--
+
+File 03_05.cpp : 1 methods found            main 	lines 16 - 82 	 123 tokens found
+total length : 123
+	--	--	--	--
+
+File 03_06.cpp : 1 methods found            main 	lines 21 - 83 	 123 tokens found
+total length : 123
+03_01.cpp is done
+
+03_02.cpp is done
+
+03_04.cpp is done
+
+03_05.cpp is done
+
+03_06.cpp is done
+
+Checking is finished

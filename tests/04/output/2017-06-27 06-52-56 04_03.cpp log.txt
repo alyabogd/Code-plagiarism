@@ -1,0 +1,477 @@
+
+comparator: GREEDY
+file to check: C:\Users\Alina\IdeaProjects\CodePlagiarism\tests\04\04_03.cpp
+files to compare: 
+	04_01.cpp
+	04_02.cpp
+	04_04.cpp
+	04_05.cpp
+	04_06.cpp
+	04_06_01.cpp
+	04_06_02.cpp
+	04_07.cpp
+	04_08.cpp
+	04_09.cpp
+	04_10.cpp
+	04_10_01.cpp
+	04_11.cpp
+	04_12.cpp
+	04_13.cpp
+	04_14.cpp
+	04_15.cpp
+	04_15_01.cpp
+	04_16.cpp
+	04_18.cpp
+	04_19.cpp
+	04_20.cpp
+	04_21.cpp
+	04_21_01.cpp
+	04_23.cpp
+	04_24.cpp
+	04_25.cpp
+	04_26.cpp
+	04_27.cpp
+	04_28.cpp
+	04_29.cpp
+	04_30.cpp
+	04_31.cpp
+	04_31_01.cpp
+	04_32.cpp
+	04_33.cpp
+	04_34.cpp
+	04_35.cpp
+	04_36.cpp
+	04_37.cpp
+	04_38.cpp
+	04_39.cpp
+	04_40.cpp
+	04_40_01.cpp
+	04_41.cpp
+	04_42.cpp
+	04_42_01.cpp
+	04_43.cpp
+	04_44.cpp
+	04_45.cpp
+	--	--	--	--
+
+File 04_01.cpp : 2 methods found             dfs 	lines 38 - 63 	 35 tokens found
+            main 	lines 64 - 87 	 33 tokens found
+total length : 68
+	--	--	--	--
+
+File 04_02.cpp : 2 methods found             dfs 	lines 25 - 47 	 43 tokens found
+            main 	lines 48 - 68 	 38 tokens found
+total length : 81
+	--	--	--	--
+
+File 04_03.cpp : 4 methods found             DFS 	lines 70 - 80 	 16 tokens found
+              Do 	lines 81 - 96 	 35 tokens found
+             Run 	lines 97 - 120 	 49 tokens found
+            main 	lines 122 - 130 	 4 tokens found
+total length : 104
+	--	--	--	--
+
+File 04_04.cpp : 3 methods found            addE 	lines 6 - 11 	 14 tokens found
+             upd 	lines 17 - 21 	 12 tokens found
+            main 	lines 22 - 45 	 76 tokens found
+total length : 102
+	--	--	--	--
+
+File 04_05.cpp : 4 methods found           setUp 	lines 30 - 35 	 11 tokens found
+             dfs 	lines 36 - 55 	 32 tokens found
+            MAIN 	lines 56 - 81 	 58 tokens found
+            main 	lines 82 - 91 	 7 tokens found
+total length : 108
+	--	--	--	--
+
+File 04_06.cpp : 3 methods found           setUp 	lines 12 - 17 	 11 tokens found
+             dfs 	lines 24 - 43 	 32 tokens found
+            main 	lines 44 - 69 	 58 tokens found
+total length : 101
+	--	--	--	--
+
+File 04_06_01.cpp : 3 methods found           setUp 	lines 12 - 17 	 11 tokens found
+             dfs 	lines 24 - 43 	 32 tokens found
+            main 	lines 44 - 69 	 58 tokens found
+total length : 101
+	--	--	--	--
+
+File 04_06_02.cpp : 3 methods found            init 	lines 12 - 17 	 11 tokens found
+             dfs 	lines 24 - 43 	 32 tokens found
+            main 	lines 44 - 69 	 58 tokens found
+total length : 101
+	--	--	--	--
+
+File 04_07.cpp : 4 methods found             add 	lines 30 - 36 	 8 tokens found
+             dfs 	lines 40 - 55 	 24 tokens found
+              dp 	lines 58 - 72 	 47 tokens found
+            main 	lines 73 - 105 	 66 tokens found
+total length : 145
+	--	--	--	--
+
+File 04_08.cpp : 2 methods found             dfs 	lines 35 - 64 	 41 tokens found
+            main 	lines 65 - 80 	 32 tokens found
+total length : 73
+	--	--	--	--
+
+File 04_09.cpp : 2 methods found             dfs 	lines 43 - 55 	 14 tokens found
+            main 	lines 62 - 120 	 78 tokens found
+total length : 92
+	--	--	--	--
+
+File 04_10.cpp : 4 methods found            addE 	lines 6 - 11 	 14 tokens found
+              ff 	lines 12 - 17 	 12 tokens found
+             upd 	lines 20 - 24 	 12 tokens found
+            main 	lines 25 - 48 	 76 tokens found
+total length : 114
+	--	--	--	--
+
+File 04_10_01.cpp : 4 methods found            addE 	lines 6 - 18 	 14 tokens found
+              ff 	lines 19 - 29 	 17 tokens found
+             upd 	lines 32 - 37 	 12 tokens found
+            main 	lines 38 - 67 	 75 tokens found
+total length : 118
+	--	--	--	--
+
+File 04_11.cpp : 2 methods found             dfs 	lines 50 - 60 	 20 tokens found
+            main 	lines 61 - 110 	 112 tokens found
+total length : 132
+	--	--	--	--
+
+File 04_12.cpp : 4 methods found            addE 	lines 36 - 41 	 14 tokens found
+              ff 	lines 42 - 47 	 12 tokens found
+             upd 	lines 50 - 54 	 12 tokens found
+            main 	lines 55 - 77 	 74 tokens found
+total length : 112
+	--	--	--	--
+
+File 04_13.cpp : 2 methods found             dfs 	lines 41 - 53 	 14 tokens found
+            main 	lines 54 - 107 	 88 tokens found
+total length : 102
+	--	--	--	--
+
+File 04_14.cpp : 6 methods found        debugarr 	lines 44 - 50 	 10 tokens found
+             dfs 	lines 71 - 89 	 32 tokens found
+            calc 	lines 95 - 117 	 48 tokens found
+           solve 	lines 120 - 138 	 37 tokens found
+           input 	lines 139 - 151 	 15 tokens found
+            main 	lines 152 - 160 	 13 tokens found
+total length : 155
+	--	--	--	--
+
+File 04_15.cpp : 2 methods found             dfs 	lines 32 - 41 	 15 tokens found
+            main 	lines 42 - 80 	 75 tokens found
+total length : 90
+	--	--	--	--
+
+File 04_15_01.cpp : 2 methods found             dfs 	lines 32 - 41 	 15 tokens found
+            main 	lines 42 - 80 	 75 tokens found
+total length : 90
+	--	--	--	--
+
+File 04_16.cpp : 2 methods found             dfs 	lines 29 - 41 	 21 tokens found
+            main 	lines 42 - 86 	 110 tokens found
+total length : 131
+	--	--	--	--
+
+File 04_18.cpp : 2 methods found             dfs 	lines 21 - 44 	 51 tokens found
+            main 	lines 46 - 66 	 43 tokens found
+total length : 94
+	--	--	--	--
+
+File 04_19.cpp : 3 methods found             dfs 	lines 32 - 42 	 20 tokens found
+            calc 	lines 43 - 50 	 9 tokens found
+            main 	lines 51 - 97 	 83 tokens found
+total length : 112
+	--	--	--	--
+
+File 04_20.cpp : 3 methods found             gcd 	lines 38 - 49 	 22 tokens found
+             dfs 	lines 56 - 63 	 11 tokens found
+            main 	lines 64 - 102 	 49 tokens found
+total length : 82
+	--	--	--	--
+
+File 04_21.cpp : 4 methods found           setUp 	lines 17 - 22 	 11 tokens found
+             dfs 	lines 23 - 42 	 32 tokens found
+           MAINA 	lines 43 - 68 	 58 tokens found
+            main 	lines 69 - 78 	 7 tokens found
+total length : 108
+	--	--	--	--
+
+File 04_21_01.cpp : 4 methods found           setUp 	lines 17 - 22 	 11 tokens found
+             dfs 	lines 23 - 42 	 32 tokens found
+           MAINA 	lines 43 - 68 	 58 tokens found
+            main 	lines 69 - 78 	 7 tokens found
+total length : 108
+	--	--	--	--
+
+File 04_23.cpp : 2 methods found             dfs 	lines 26 - 50 	 52 tokens found
+            main 	lines 51 - 78 	 56 tokens found
+total length : 108
+	--	--	--	--
+
+File 04_24.cpp : 6 methods found             Gcd 	lines 40 - 45 	 15 tokens found
+           Power 	lines 46 - 54 	 24 tokens found
+         Inverse 	lines 55 - 58 	 4 tokens found
+          Answer 	lines 59 - 63 	 5 tokens found
+             Dfs 	lines 68 - 74 	 13 tokens found
+            main 	lines 78 - 108 	 54 tokens found
+total length : 115
+	--	--	--	--
+
+File 04_25.cpp : 3 methods found         AddEdge 	lines 23 - 27 	 6 tokens found
+             DFS 	lines 28 - 45 	 38 tokens found
+            main 	lines 46 - 70 	 51 tokens found
+total length : 95
+	--	--	--	--
+
+File 04_26.cpp : 2 methods found             dfs 	lines 16 - 42 	 44 tokens found
+            main 	lines 43 - 61 	 45 tokens found
+total length : 89
+	--	--	--	--
+
+File 04_27.cpp : 2 methods found             dfs 	lines 33 - 42 	 21 tokens found
+            main 	lines 43 - 90 	 131 tokens found
+total length : 152
+	--	--	--	--
+
+File 04_28.cpp : 2 methods found             dfs 	lines 19 - 33 	 28 tokens found
+            main 	lines 34 - 75 	 112 tokens found
+total length : 140
+	--	--	--	--
+
+File 04_29.cpp : 3 methods found             dfs 	lines 14 - 36 	 48 tokens found
+              bd 	lines 37 - 40 	 6 tokens found
+            main 	lines 42 - 53 	 24 tokens found
+total length : 78
+	--	--	--	--
+
+File 04_30.cpp : 10 methods found           &maxx 	lines 41 - 45 	 6 tokens found
+           &minn 	lines 47 - 51 	 6 tokens found
+           &madd 	lines 58 - 63 	 9 tokens found
+           &msub 	lines 64 - 69 	 10 tokens found
+          &mmult 	lines 70 - 74 	 6 tokens found
+            mdiv 	lines 75 - 81 	 21 tokens found
+             dfs 	lines 93 - 104 	 21 tokens found
+             fnd 	lines 105 - 113 	 32 tokens found
+            dfsb 	lines 114 - 131 	 44 tokens found
+            main 	lines 132 - 162 	 41 tokens found
+total length : 196
+	--	--	--	--
+
+File 04_31.cpp : 7 methods found             abs 	lines 38 - 41 	 6 tokens found
+           print 	lines 44 - 47 	 7 tokens found
+           print 	lines 50 - 53 	 7 tokens found
+            read 	lines 70 - 85 	 25 tokens found
+           solve 	lines 89 - 176 	 94 tokens found
+           solve 	lines 177 - 201 	 31 tokens found
+            main 	lines 202 - 213 	 4 tokens found
+total length : 174
+	--	--	--	--
+
+File 04_31_01.cpp : 7 methods found             abs 	lines 38 - 41 	 6 tokens found
+           print 	lines 44 - 47 	 7 tokens found
+           print 	lines 50 - 53 	 7 tokens found
+            read 	lines 70 - 85 	 25 tokens found
+           solve 	lines 89 - 176 	 94 tokens found
+           solve 	lines 177 - 201 	 31 tokens found
+            main 	lines 202 - 213 	 4 tokens found
+total length : 174
+	--	--	--	--
+
+File 04_32.cpp : 7 methods found        readData 	lines 59 - 75 	 18 tokens found
+             dfs 	lines 77 - 87 	 12 tokens found
+              go 	lines 93 - 103 	 18 tokens found
+           solve 	lines 106 - 137 	 48 tokens found
+         hasNext 	lines 138 - 146 	 13 tokens found
+ runWithoutCaseT 	lines 147 - 153 	 5 tokens found
+            main 	lines 154 - 163 	 4 tokens found
+total length : 118
+	--	--	--	--
+
+File 04_33.cpp : 2 methods found             dfs 	lines 5 - 14 	 22 tokens found
+            main 	lines 15 - 66 	 131 tokens found
+total length : 153
+	--	--	--	--
+
+File 04_34.cpp : 2 methods found             dfs 	lines 6 - 22 	 51 tokens found
+             for 	lines 24 - 29 	 6 tokens found
+total length : 57
+	--	--	--	--
+
+File 04_35.cpp : 3 methods found             dfs 	lines 34 - 48 	 33 tokens found
+           solve 	lines 49 - 83 	 102 tokens found
+            main 	lines 84 - 89 	 5 tokens found
+total length : 140
+	--	--	--	--
+
+File 04_36.cpp : 3 methods found             abs 	lines 26 - 29 	 6 tokens found
+             dfs 	lines 42 - 61 	 48 tokens found
+            main 	lines 62 - 79 	 42 tokens found
+total length : 96
+	--	--	--	--
+
+File 04_37.cpp : 2 methods found              IN 	lines 4 - 7 	 6 tokens found
+            main 	lines 8 - 40 	 115 tokens found
+total length : 121
+	--	--	--	--
+
+File 04_38.cpp : 2 methods found             dfs 	lines 32 - 54 	 57 tokens found
+            main 	lines 55 - 74 	 47 tokens found
+total length : 104
+	--	--	--	--
+
+File 04_39.cpp : 5 methods found            Comp 	lines 35 - 38 	 12 tokens found
+             Add 	lines 41 - 58 	 41 tokens found
+           Relax 	lines 59 - 67 	 11 tokens found
+             DFS 	lines 69 - 118 	 151 tokens found
+            main 	lines 119 - 147 	 51 tokens found
+total length : 266
+	--	--	--	--
+
+File 04_40.cpp : 2 methods found              go 	lines 15 - 34 	 64 tokens found
+            main 	lines 35 - 51 	 52 tokens found
+total length : 116
+	--	--	--	--
+
+File 04_40_01.cpp : 2 methods found              go 	lines 15 - 34 	 64 tokens found
+            main 	lines 35 - 51 	 52 tokens found
+total length : 116
+	--	--	--	--
+
+File 04_41.cpp : 3 methods found              go 	lines 38 - 50 	 15 tokens found
+            calc 	lines 55 - 76 	 30 tokens found
+            main 	lines 77 - 105 	 41 tokens found
+total length : 86
+	--	--	--	--
+
+File 04_42.cpp : 3 methods found         addEdge 	lines 15 - 20 	 9 tokens found
+             dfs 	lines 21 - 30 	 16 tokens found
+            main 	lines 31 - 63 	 91 tokens found
+total length : 116
+	--	--	--	--
+
+File 04_42_01.cpp : 3 methods found         addEdge 	lines 15 - 20 	 9 tokens found
+             dfs 	lines 21 - 30 	 16 tokens found
+            main 	lines 31 - 63 	 91 tokens found
+total length : 116
+	--	--	--	--
+
+File 04_43.cpp : 3 methods found            dfs0 	lines 43 - 54 	 20 tokens found
+             dfs 	lines 59 - 82 	 57 tokens found
+            main 	lines 83 - 123 	 67 tokens found
+total length : 144
+	--	--	--	--
+
+File 04_44.cpp : 4 methods found             dfs 	lines 27 - 40 	 17 tokens found
+             add 	lines 41 - 46 	 17 tokens found
+            func 	lines 47 - 58 	 15 tokens found
+            main 	lines 59 - 82 	 42 tokens found
+total length : 91
+	--	--	--	--
+
+File 04_45.cpp : 3 methods found             add 	lines 13 - 16 	 6 tokens found
+            find 	lines 17 - 21 	 6 tokens found
+            main 	lines 28 - 63 	 133 tokens found
+total length : 145
+04_01.cpp is done
+
+04_02.cpp is done
+
+04_04.cpp is done
+
+04_05.cpp is done
+
+04_06.cpp is done
+
+04_06_01.cpp is done
+
+04_06_02.cpp is done
+
+04_07.cpp is done
+
+04_08.cpp is done
+
+04_09.cpp is done
+
+04_10.cpp is done
+
+04_10_01.cpp is done
+
+04_11.cpp is done
+
+04_12.cpp is done
+
+04_13.cpp is done
+
+04_14.cpp is done
+
+04_15.cpp is done
+
+04_15_01.cpp is done
+
+04_16.cpp is done
+
+04_18.cpp is done
+
+04_19.cpp is done
+
+04_20.cpp is done
+
+04_21.cpp is done
+
+04_21_01.cpp is done
+
+04_23.cpp is done
+
+04_24.cpp is done
+
+04_25.cpp is done
+
+04_26.cpp is done
+
+04_27.cpp is done
+
+04_28.cpp is done
+
+04_29.cpp is done
+
+04_30.cpp is done
+
+04_31.cpp is done
+
+04_31_01.cpp is done
+
+04_32.cpp is done
+
+04_33.cpp is done
+
+04_34.cpp is done
+
+04_35.cpp is done
+
+04_36.cpp is done
+
+04_37.cpp is done
+
+04_38.cpp is done
+
+04_39.cpp is done
+
+04_40.cpp is done
+
+04_40_01.cpp is done
+
+04_41.cpp is done
+
+04_42.cpp is done
+
+04_42_01.cpp is done
+
+04_43.cpp is done
+
+04_44.cpp is done
+
+04_45.cpp is done
+
+Checking is finished

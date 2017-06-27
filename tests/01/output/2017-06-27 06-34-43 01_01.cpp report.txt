@@ -1,0 +1,20 @@
+
+comparator: GREEDY
+file to check: C:\Users\Alina\IdeaProjects\CodePlagiarism\tests\01\01_01.cpp
+files to compare: 
+	01_02.cpp
+	01_02_01.cpp
+	01_03.cpp
+	01_03_01.cpp
+Found plagiarism with 01_02.cpp
+	main and main	 measure:  	0.8244274809160306
+
+Found plagiarism with 01_02_01.cpp
+	main and main	 measure:  	0.8244274809160306
+
+Found plagiarism with 01_03.cpp
+	main and main	 measure:  	0.9596774193548387
+
+Found plagiarism with 01_03_01.cpp
+	main and main	 measure:  	0.9596774193548387
+

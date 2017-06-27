@@ -1,0 +1,60 @@
+
+comparator: GREEDY
+file to check: C:\Users\Alina\IdeaProjects\CodePlagiarism\tests\04\04_23.cpp
+files to compare: 
+	04_01.cpp
+	04_02.cpp
+	04_03.cpp
+	04_04.cpp
+	04_05.cpp
+	04_06.cpp
+	04_06_01.cpp
+	04_06_02.cpp
+	04_07.cpp
+	04_08.cpp
+	04_09.cpp
+	04_10.cpp
+	04_10_01.cpp
+	04_11.cpp
+	04_12.cpp
+	04_13.cpp
+	04_14.cpp
+	04_15.cpp
+	04_15_01.cpp
+	04_16.cpp
+	04_18.cpp
+	04_19.cpp
+	04_20.cpp
+	04_21.cpp
+	04_21_01.cpp
+	04_24.cpp
+	04_25.cpp
+	04_26.cpp
+	04_27.cpp
+	04_28.cpp
+	04_29.cpp
+	04_30.cpp
+	04_31.cpp
+	04_31_01.cpp
+	04_32.cpp
+	04_33.cpp
+	04_34.cpp
+	04_35.cpp
+	04_36.cpp
+	04_37.cpp
+	04_38.cpp
+	04_39.cpp
+	04_40.cpp
+	04_40_01.cpp
+	04_41.cpp
+	04_42.cpp
+	04_42_01.cpp
+	04_43.cpp
+	04_44.cpp
+	04_45.cpp
+Found plagiarism with 04_15.cpp
+	main and main	 measure:  	0.6071428571428571
+
+Found plagiarism with 04_15_01.cpp
+	main and main	 measure:  	0.6071428571428571
+

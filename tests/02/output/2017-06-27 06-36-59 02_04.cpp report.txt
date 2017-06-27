@@ -1,0 +1,7 @@
+
+comparator: GREEDY
+file to check: C:\Users\Alina\IdeaProjects\CodePlagiarism\tests\02\02_04.cpp
+files to compare: 
+	02_01.cpp
+	02_02.cpp
+	02_03.cpp

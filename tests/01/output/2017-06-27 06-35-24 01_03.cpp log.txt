@@ -1,0 +1,42 @@
+
+comparator: GREEDY
+file to check: C:\Users\Alina\IdeaProjects\CodePlagiarism\tests\01\01_03.cpp
+files to compare: 
+	01_01.cpp
+	01_02.cpp
+	01_02_01.cpp
+	01_03_01.cpp
+	--	--	--	--
+
+File 01_01.cpp : 2 methods found              gg 	lines 22 - 26 	 5 tokens found
+            main 	lines 27 - 64 	 131 tokens found
+total length : 136
+	--	--	--	--
+
+File 01_02.cpp : 2 methods found            fail 	lines 24 - 28 	 5 tokens found
+            main 	lines 29 - 67 	 131 tokens found
+total length : 136
+	--	--	--	--
+
+File 01_02_01.cpp : 2 methods found            fail 	lines 24 - 31 	 5 tokens found
+            main 	lines 32 - 80 	 131 tokens found
+total length : 136
+	--	--	--	--
+
+File 01_03.cpp : 2 methods found            fail 	lines 17 - 21 	 5 tokens found
+            main 	lines 22 - 60 	 124 tokens found
+total length : 129
+	--	--	--	--
+
+File 01_03_01.cpp : 2 methods found            fail 	lines 19 - 29 	 5 tokens found
+            main 	lines 30 - 73 	 124 tokens found
+total length : 129
+01_01.cpp is done
+
+01_02.cpp is done
+
+01_02_01.cpp is done
+
+01_03_01.cpp is done
+
+Checking is finished
