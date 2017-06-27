@@ -1,67 +1,103 @@
-#include<bits/stdc++.h>
+#include <stdio.h>
+#include <string.h>
+#include <algorithm>
+#include <iostream>
+#include <math.h>
+
 using namespace std;
+#define mod  1000000007LL
+char str[1111111],p[1111111];
+int next[1111111],poi[1111111];
+bool kt[1111111];
 
-#define sin(x) scanf("%d",&x)
-#define sin2(x,y) scanf("%d%d",&x,&y)
-#define sin3(x,y,z) scanf("%d%d%d",&x,&y,&z)
-
-#define pb push_back
-#define mp make_pair
-#define y1 asdnqw
-#define next mdamdamda
-#define right praviy
-#define x first
-#define y second
-#define endl "\n"
-#define int long long
-const int N=2000001;
-const int B1=31,B2=27;
-const int md1=1e9+7,md2=1e9+13;
-const int md=1e9+7;
-string s;
-int n,m,p1[N],p2[N],h1[N],h2[N],l1,l2,r1,r2,ans,csum,ss[N],b[N];
-int pl,q;
-
-void fail() {
-    cout<<0;
-    exit(0);
+void getint(int &s) {
+    char ch;
+    while(ch=getchar())
+    {
+        if(ch>='0'&&ch<='9')
+        break;
+    }
+    s=ch-'0';
+    while(ch=getchar())
+    {
+        if(ch>='0'&&ch<='9')s=s*10+ch-'0';
+        else break;
+    }
 }
 
-int main() {
-    cin.tie(0);ios_base::sync_with_stdio(0);
-    cin>>n>>m;
-    cin>>s;
-    pl=s.size();
-    s='#'+s;
-    p1[0]=p2[0]=1;
-    for(int i=1;i<=n;++i){
-        p2[i]=(p2[i-1]*B2)%md2;
-        p1[i]=(p1[i-1]*B1)%md1;
-    }
-    for(int i=1;i<s.size();++i){
-        h2[i]=(h2[i-1]+(s[i]-'a'+1)*p2[i])%md2;
-        h1[i]=(h1[i-1]+(s[i]-'a'+1)*p1[i])%md1;
-    }
-    for(int i=1;i<=m;++i){
-        cin>>b[i];
-        ss[b[i]]++;
-        ss[b[i]+pl]--;
-    }
-    for(int i=2;i<=m;++i){
-        if(b[i-1]+pl)-b[i]<=0)continue;
-        l1=(h1[q]-p1[pl-q])%md1;
-        l2=(h2[q]-p2[pl-q])%md2;
-        r1=(h1[pl]*h1[pl-q]+md1);if(r1>=md1)r1-=md1;
-                r2=(h2[pl]*h2[pl-q]+md2);if(r2>=md2)r2-=md2;
-       // cout<<l1<<' '<<r1<<' '<<l2<<' '<<r2<<' '<<q<<endl;
-        if(l1!=r1||l2!=r2)fail();
-    }
-    ans=1;
-    for(int i=1;i<=n;++i){
-        csum+=ss[i];
-        if(csum==0)ans=(ans*26)%md;
-    }
-    cout<<ans;
+__int64 pow(__int64 d,int s) {
+    if(s==0)return 1;
+    else if(s%2==1) return d*(pow(d,s-1)%mod)%mod;
+    else if(s%2==0)return pow((d*d)%mod,s/2)%mod;
+}
 
+
+int main() {
+    int n,m;
+    scanf("%d%d%*c",&n,&m);
+    memset(str,'\0',sizeof(str));
+    memset(kt,false,sizeof(kt));
+    scanf("%s",p+1);
+    next[0]=1;
+    next[1]=0;
+    kt[1]=true;
+    for(next[0]=2;p[next[0]]!='\0';next[0]++)
+    {
+        int j=next[next[0]-1];
+        while(j>0&&p[j+1]!=p[next[0]])j=next[j];
+        next[next[0]]=j;
+        if(p[j+1]==p[next[0]])
+        {
+            next[next[0]]++;
+        }
+        if(next[next[0]]==1||kt[next[next[0]]]==true)kt[next[0]]=true;
+    }
+    next[0]--;
+    for(int i=1;i<=m;i++)
+    getint(poi[i]);
+    poi[m+1]=11111111;
+    int tp=1;
+    int ts=next[0]+1;
+    bool key=true;
+    int cnt=0;
+    for(int i=1;i<=n;i++)
+    {
+        if(!key)break;
+        if(ts>next[0])
+        {
+            if(poi[tp]==i)
+            {
+                ts=1;
+                tp++;
+            }
+        }
+        else if(ts<=next[0])
+        {
+            if(poi[tp]==i)
+            {
+                int len=next[0]-ts+1;
+                int b=next[0];
+                int d=next[b];
+                if(kt[ts]==true)
+                {
+                    if(d-next[ts]+1==len)ts=1;
+                    else key=false;
+                }
+                else key=false;
+                tp++;
+            }
+        }
+        if(ts<=next[0])
+        {
+            str[i]=p[ts];
+        }
+        else cnt++;
+        ts++;
+    }
+    if(!key)printf("0\n");
+    else {
+        __int64 ans=pow(26LL,cnt)%mod;
+        printf("%I64d\n",ans);
+    }
 
 }

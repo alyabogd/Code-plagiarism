@@ -80,52 +80,6 @@ inline bool read() {
 bool ans[N];
 int last[N];
 
-inline void solve() {
-	forn(i, m) ans[i] = false;
-
-	forn(i, m) last[i] = -1;
-	forn(i, n) if (x[i] != -1) last[x[i]] = i;
-
-	set<pt> z;
-	forn(i, m) if (last[i] == -1) z.insert(mp(a[i], i));
-
-	int c = 0;
-	bool is = false;
-	set<int> mdied;
-	forn(i, n)
-	{
-		if (y[i] == 1 && !is)
-		{
-			int cur = INF;
-			for (set<int>::iterator it = mdied.begin(); it != mdied.end(); it++)
-				cur = min(cur, a[*it]);
-			assert(cur != INF);
-			c -= cur;
-			assert(c >= 0);
-			is = true;
-		}
-
-		if (x[i] == -1)
-			c++;
-		else
-		{
-			a[x[i]]--;
-			if (last[x[i]] == i) z.insert(mp(a[x[i]], x[i]));
-		}
-
-		while (!z.empty() && z.begin()->x <= c)
-		{
-			int idx = z.begin()->y;
-			ans[idx] = true;
-			mdied.insert(idx);
-			z.erase(z.begin());
-		}
-	}
-
-	forn(i, m) if (a[i] <= c) ans[i] = true;
-	forn(i, m) putchar(ans[i] ? 'Y' : 'N');
-	puts("");
-}
 
 int main() {
 #ifdef SU2_PROJ
@@ -140,7 +94,50 @@ int main() {
 	cin >> tt;
     while (read())
 	{
-		solve();
+		forn(i, m) ans[i] = false;
+
+        	forn(i, m) last[i] = -1;
+        	forn(i, n) if (x[i] != -1) last[x[i]] = i;
+
+        	set<pt> z;
+        	forn(i, m) if (last[i] == -1) z.insert(mp(a[i], i));
+
+        	int c = 0;
+        	bool is = false;
+        	set<int> mdied;
+        	forn(i, n)
+        	{
+        		if (y[i] == 1 && !is)
+        		{
+        			int cur = INF;
+        			for (set<int>::iterator it = mdied.begin(); it != mdied.end(); it++)
+        				cur = min(cur, a[*it]);
+        			assert(cur != INF);
+        			c -= cur;
+        			assert(c >= 0);
+        			is = true;
+        		}
+
+        		if (x[i] == -1)
+        			c++;
+        		else
+        		{
+        			a[x[i]]--;
+        			if (last[x[i]] == i) z.insert(mp(a[x[i]], x[i]));
+        		}
+
+        		while (!z.empty() && z.begin()->x <= c)
+        		{
+        			int idx = z.begin()->y;
+        			ans[idx] = true;
+        			mdied.insert(idx);
+        			z.erase(z.begin());
+        		}
+        	}
+
+        	forn(i, m) if (a[i] <= c) ans[i] = true;
+        	forn(i, m) putchar(ans[i] ? 'Y' : 'N');
+        	puts("");
 		if (--tt <= 0) break;
 	}
 
