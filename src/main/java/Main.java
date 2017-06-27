@@ -7,7 +7,12 @@ import advance.fileParcers.FileUtil;
 
 import javax.print.DocFlavor;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.*;
 
 public class Main {
@@ -31,10 +36,11 @@ public class Main {
             "[EXIT] - to exit the program\n" +
             "\n" +
             "---";
-
     private static Comparators comparator;
     private static File fileToCheck;
     private static File directoryToCheck;
+    private static StringBuilder logBuilder;
+    private static StringBuilder reportBuilder;
 
     private static String getState() {
         StringBuilder sb = new StringBuilder();
@@ -134,12 +140,15 @@ public class Main {
 
             System.out.println("Don't understand " + command);
         }
-
-
     }
 
     private static void startCheck() {
         System.out.println("\tstarting...\n");
+        logBuilder = new StringBuilder();
+        logBuilder.append(getState());
+        reportBuilder = new StringBuilder();
+        reportBuilder.append(getState());
+
         List<SourceCode> sourceCodes = new ArrayList<>();
         SourceCode pattern = null;
         CodeParser codeParser = new CCodeParser();
@@ -152,25 +161,27 @@ public class Main {
             } else {
                 sourceCodes.add(code);
             }
+
+            logBuilder.append("\t--\t--\t--\t--\n\nFile ").append(file.getName()).append(" :");
             System.out.println("\t--\t--\t--\t--\n\nFile " + file.getName() + " :");
+            logBuilder.append(" ").append(code.getMethods().size()).append(" methods found");
             System.out.println(" " + code.getMethods().size() + " methods found");
             int tokensAll = 0;
             for (Method method : code.getMethods()) {
-                System.out.format(" %15s \tlines %d - %d \t %d tokens found\n",
+                String info = String.format(" %15s \tlines %d - %d \t %d tokens found\n",
                         method.getName(),
                         method.getStartLine(),
                         method.getEndLine(),
                         method.getNumberOfTokens());
+                System.out.format(info);
+                logBuilder.append(info);
                 tokensAll += method.getNumberOfTokens();
             }
+            logBuilder.append("total length : ").append(tokensAll).append("\n");
             System.out.println("total length : " + tokensAll + "\n");
         }
 
         performChecking(pattern, sourceCodes);
-    }
-
-    private static void doSomething() {
-
     }
 
     private static void performChecking(SourceCode pattern, List<SourceCode> sourceCodes) {
@@ -188,15 +199,41 @@ public class Main {
                 break;
         }
 
+
         for (SourceCode sourceCode : sourceCodes) {
             CodeSimilarity similarity = codeComparator.compare(pattern, sourceCode);
             if (!similarity.getPlagiatedMethods().isEmpty()) {
                 System.out.println("Found plagiarism with " + sourceCode.getFileName());
                 System.out.println(similarity);
+
+                reportBuilder.append("Found plagiarism with ").append(sourceCode.getFileName()).append("\n");
+                reportBuilder.append(similarity).append("\n");
             }
+            logBuilder.append(sourceCode.getFileName()).append(" is done\n\n");
+            System.out.println(sourceCode.getFileName() + " is done\n\n");
         }
+        logBuilder.append("Checking is finished").append("\n");
+        System.out.println("Checking is finished");
+
+        write_reports();
     }
 
+    private static void write_reports() {
+        String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh-mm-ss"));
+        String fileName = time + " " + fileToCheck.getName() + " " + comparator + " ";
+        try {
+            PrintWriter logWriter = new PrintWriter(new File(fileName + "log.txt"));
+            PrintWriter reportWriter = new PrintWriter(new File(fileName + "report.txt"));
+
+            logWriter.write(logBuilder.toString());
+            logWriter.close();
+
+            reportWriter.write(reportBuilder.toString());
+            reportWriter.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     public enum Comparators {
         LCS,

@@ -181,7 +181,7 @@ public class GreedyStringTiling {
                     int textIndex = beginIndex + currentMatchLength;
                     while (patternIndex < pattern.size() &&
                             textIndex < text.size() &&
-                            pattern.get(patternIndex).compare(text.get(textIndex)) != 0 &&
+                            pattern.get(patternIndex).compare(text.get(textIndex)) ==2 &&
                             isTextTokenUnmarked(textIndex) &&
                             isPatternTokenUnmarked(patternIndex)) {
                         // extend match until EOL or first non-match or element marked
