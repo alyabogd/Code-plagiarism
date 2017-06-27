@@ -48,8 +48,12 @@ typedef long long li;
 typedef long double ld;
 typedef pair<int, int> pt;
 
-template<typename X> inline X abs(const X& a) { return a < 0? -a: a; }
-template<typename X> inline X sqr(const X& a) { return a * a; }
+template<typename X> inline X abs(const X& a) {
+return a < 0? -a: a;
+}
+template<typename X> inline X sqr(const X& a) {
+return a * a;
+}
 
 const int INF = int(1e9);
 const li INF64 = li(1e18);
